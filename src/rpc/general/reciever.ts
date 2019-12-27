@@ -7,8 +7,8 @@ export enum RecieverType {
 
 export class GeneralReciever {
 	public rpc: RPC;
-	constructor(client: string, channel: string, type: RecieverType, group?: any) {
-		this.rpc = new RPC(client, channel, type, group,1000);
+	constructor(client: string, channel: string, type: RecieverType, group?: any, defaultTimeout: number = 1000) {
+		this.rpc = new RPC(client, channel, type, group,defaultTimeout);
 	}
 
 	subscribe(reqHandler: Function, errorHandler: Function) {
