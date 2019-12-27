@@ -1,6 +1,6 @@
 import {Initiator} from './lowLevel';
 import {Responder} from './lowLevel/responder';
-import {RecieverType} from './command';
+import {RecieverType} from './general';
 
 export class RPC {
 	public sender: Initiator = new Initiator();

@@ -1,3 +1,3 @@
 export * from './lowLevel';
-export * from './command';
+export * from './general';
 export * from './rpc';
