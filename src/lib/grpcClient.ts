@@ -8,8 +8,13 @@ export class GrpcClient {
 	protected loadpck: any = null; // TODO: Types for this
 
 	// GrpcClient Stuff
-	private client = null; // TODO: Types for this
+	private client!: any; // TODO: Types for this, Check it is actually always available.
 	private metadata: any[] = [];
+
+	constructor() {
+		this.init();
+		this.getKubeMQClient().bind(this); // TODO: This uses .bind(this) for some unknown reason lol
+	}
 
 	init() {
 		// TODO: That's wrapped with () for some unknown reason?!?
