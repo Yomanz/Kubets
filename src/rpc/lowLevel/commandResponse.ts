@@ -1,10 +1,10 @@
 // https://github.com/kubemq-io/kubemq-node/blob/master/rpc/lowLevel/commandResponse.js
 export class CommandResponse {
-	public requestID = this.request.RequestID;
-	public replyChannel = this.request.ReplyChannel;
-	public cacheHit = this.request.CacheHit;
-	public timestamp = this.request.TimeStamp;
-	public error = this.request.Error;
-	public tags = undefined;
-	constructor(private request: any, public executed: boolean) {}
+	public RequestID = this.request.RequestID;
+	public ReplyChannel = this.request.ReplyChannel;
+	public CacheHit = this.request.CacheHit;
+	public Timestamp = this.request.TimeStamp;
+	public Error = this.request.Error;
+	public Tags = undefined;
+	constructor(private request: any, public Executed: boolean) {}
 }

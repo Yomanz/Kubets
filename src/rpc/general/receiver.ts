@@ -1,14 +1,14 @@
 import {RPC} from "../rpc";
 
 export enum RecieverType {
-	Commands= 1,
-	Query
+	Commands = 1,
+	Query = 2
 }
 
-export class GeneralReciever {
+export class GeneralReceiver {
 	public rpc: RPC;
-	constructor(client: string, channel: string, type: RecieverType, group?: any, defaultTimeout: number = 1000) {
-		this.rpc = new RPC(client, channel, type, group,defaultTimeout);
+	constructor(client: string, channel: string, type: RecieverType, group?: string, defaultTimeout: number = 1000) {
+		this.rpc = new RPC(client, channel, type, group, defaultTimeout);
 	}
 
 	subscribe(reqHandler: Function, errorHandler: Function) {

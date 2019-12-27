@@ -1,20 +1,20 @@
-import {Initiator} from './lowLevel';
-import {Responder} from './lowLevel/responder';
+import {CommandRequest, Initiator} from './lowLevel';
+import {Responder} from './lowLevel';
 import {RecieverType} from './general';
 
 export class RPC {
 	public sender: Initiator = new Initiator();
 	public responder?: Responder;
-	constructor(public client: any, public channel: any, public type: RecieverType, public group?: number, public defaultTimeout: number = 1000) {}
+	constructor(public client: any, public channel: any, public type: RecieverType, public group?: string, public defaultTimeout: number = 1000) {}
 
 	send(request: any) {
-		request.channel = this.channel;
-		request.clientid = this.client;
+		request.Channel = this.channel;
+		request.ClientID = this.client;
 
-		request.requesttypedata = this.type;
+		request.RequestTypeData = this.type;
 
-		if (request.timeout === undefined) {
-			request.timeout = this.defaultTimeout;
+		if (!request.Timeout) {
+			request.Timeout = this.defaultTimeout;
 		}
 
 		return this.sender.sendRequest(request);

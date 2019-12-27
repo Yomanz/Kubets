@@ -1,7 +1,7 @@
 export class CommandRequest {
-	public requestID = undefined;
-	public metadata = undefined;
-	public timeout = undefined;
-	public tags = undefined;
-	constructor(public body: any) {}
+	public RequestID = undefined;
+	public Metadata = undefined;
+	public Timeout = undefined;
+	public Tags = undefined;
+	constructor(public Body: Buffer) {}
 }

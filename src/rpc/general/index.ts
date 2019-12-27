@@ -1,2 +1,2 @@
-export * from './reciever';
+export * from './receiver';
 export * from './sender';

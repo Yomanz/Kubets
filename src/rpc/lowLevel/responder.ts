@@ -8,8 +8,8 @@ export class Responder extends EventEmitter {
 	subscribeToRequests(subscribeRequest: any, reqHandler: Function, errorHandler: Function){
 		this.join = this.GRPCConnection.getKubeMQClient().SubscribeToRequests(subscribeRequest);
 
-		this.join.on("error", errorHandler);
-		this.join.on("data", reqHandler);
+		this.join.on('error', errorHandler);
+		this.join.on('data', reqHandler);
 
 		this.stop = this.stop.bind(this);
 	}
