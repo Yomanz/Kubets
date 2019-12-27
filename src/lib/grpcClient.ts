@@ -1,5 +1,5 @@
 import {credentials, loadPackageDefinition} from 'grpc';
-import { loadSync } from '@grpc/proto-loader'
+import {loadSync} from '@grpc/proto-loader'
 import {Config} from "../classes";
 import {readFileSync} from "fs";
 
@@ -13,7 +13,7 @@ export class GrpcClient {
 
 	constructor() {
 		this.init();
-		this.getKubeMQClient().bind(this); // TODO: This uses .bind(this) for some unknown reason lol
+		this.getKubeMQClient(); // TODO: This uses .bind(this) for some unknown reason lol
 	}
 
 	init() {
