@@ -1,16 +1,11 @@
-import {Initiator} from "./lowLevel";
-import {Responder} from "./lowLevel/responder";
-
-// TODO: Do this better?
-export const Type = {
-	Commands: 1,
-	Query: 2
-};
+import {Initiator} from './lowLevel';
+import {Responder} from './lowLevel/responder';
+import {RecieverType} from './command';
 
 export class RPC {
 	public sender: Initiator = new Initiator();
 	public responder?: Responder;
-	constructor(public client: any, public channel: any, public type: any, public group?: number, public defaultTimeout: number = 1000) {}
+	constructor(public client: any, public channel: any, public type: RecieverType, public group?: number, public defaultTimeout: number = 1000) {}
 
 	send(request: any) {
 		request.channel = this.channel;
