@@ -1,10 +1,16 @@
 import {Initiator} from "./lowLevel";
 import {Responder} from "./lowLevel/responder";
 
+// TODO: Do this better?
+export const Type = {
+	Commands: 1,
+	Query: 2
+};
+
 export class RPC {
 	public sender: Initiator = new Initiator();
 	public responder?: Responder;
-	constructor(public kubeMQHost: string, public kubeMQGRPCport: number, public client: any, public channel: any, public type: any, public group: any, public defaultTimeout: any) {}
+	constructor(public client: any, public channel: any, public type: any, public group?: number, public defaultTimeout: number = 1000) {}
 
 	send(request: any) {
 		request.channel = this.channel;

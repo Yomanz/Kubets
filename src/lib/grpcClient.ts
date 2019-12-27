@@ -13,7 +13,7 @@ export class GrpcClient {
 
 	constructor() {
 		this.init();
-		this.getKubeMQClient(); // TODO: This uses .bind(this) for some unknown reason lol
+		this.getKubeMQClient.bind(this); // TODO: This uses .bind(this) for some unknown reason lol
 	}
 
 	init() {
@@ -22,14 +22,14 @@ export class GrpcClient {
 	}
 
 	getKubeMQClient() {
-		if (this.client === null) {
+		if (!this.client) {
 			const clientCertFile = Config.get('KubeMQCertificateFile');
 			if (clientCertFile) {
 				let contents = readFileSync(clientCertFile);
 				// TODO: Types for proto files (check shared)
-				this.client = new this.proto.service.kubemq(Config.get('KubeMQServerAddress'), credentials.createSsl(contents))
+				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createSsl(contents))
 			} else {
-				this.client = new this.proto.service.kubemq(Config.get('KubeMQServerAddress'), credentials.createInsecure())
+				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createInsecure())
 			}
 		}
 
@@ -37,8 +37,8 @@ export class GrpcClient {
 	}
 
 	get proto() {
-		if (this.loadpck === null) {
-			const loader = loadSync(`${__dirname} + ../protos/grpc/kubemq.proto`, {
+		if (!this.loadpck) {
+			const loader = loadSync(`${__dirname} + \\..\\protos\\grpc\\kubemq.proto`, {
 				keepCase: true,
 				longs: String,
 				enums: String,
@@ -47,7 +47,8 @@ export class GrpcClient {
 			});
 			const proto = loadPackageDefinition(loader);
 
-			this.loadpck = proto.kubemq;
+			// @ts-ignore TODO: Check why I have to ts-ignore thiis
+			this.loadpck = loadPackageDefinition(proto).kubemq;
 		}
 		return this.loadpck
 	}
