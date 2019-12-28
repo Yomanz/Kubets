@@ -6,7 +6,7 @@ Although this works, it is in early development and not all of KubeMQ is support
 ```
 A **KubeMQ Library for Typescript** enables Typescript developers to communicate with [KubeMQ](https://kubemq.io/) server in a, mostly, type-safe way!.
 
-### Install me
+## Install me
 [NPM Package](https://www.npmjs.com/package/kubets) is the best way to install this.
 
 ## Environmental Variables.
@@ -18,4 +18,4 @@ process.env.KubeMQServerPort = 50000
 process.env['KubeMQCertificateFile'] = 'cert.pem'
 ```
 That is also, conveniently,  all of the *current* configurable options.
--
+
