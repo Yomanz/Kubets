@@ -1,11 +1,12 @@
 import { GrpcClient } from "../../lib";
+import {Empty, kubemqClient, PingResult, Request, Response} from "../../protos";
 
 export class Initiator {
-	public GRPCConnection = new GrpcClient();
+	constructor(public client: kubemqClient) {}
 
-	sendRequest(request: any): Promise<any> { // TODO: Types
+	sendRequest(request: Request): Promise<Response> { // TODO: Types
 		return new Promise((resolve, reject) => {
-			this.GRPCConnection.getKubeMQClient().SendRequest(request, (e: any, res: any) => {
+			this.client.sendRequest(request, (e: any, res: any) => {
 				if (e) reject(e);
 
 				resolve(res);
@@ -13,9 +14,9 @@ export class Initiator {
 		})
 	}
 
-	ping() {
+	ping(): Promise<PingResult> {
 		return new Promise((resolve, reject) => {
-			this.GRPCConnection.getKubeMQClient().Ping({}, (e: any, res: any) => {
+			this.client.ping(new Empty(), (e: any, res: any) => {
 				if (e) reject(e);
 
 				resolve(res);

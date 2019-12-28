@@ -1,17 +1,18 @@
 import {RPC} from "../rpc";
+import {Request, Response} from "../../protos";
 
-export enum RecieverType {
+export enum ReceiverType {
 	Commands = 1,
 	Query = 2
 }
 
 export class GeneralReceiver {
 	public rpc: RPC;
-	constructor(client: string, channel: string, type: RecieverType, group?: string, defaultTimeout: number = 1000) {
+	constructor(client: string, channel: string, type: ReceiverType, group?: string, defaultTimeout: number = 1000) {
 		this.rpc = new RPC(client, channel, type, group, defaultTimeout);
 	}
 
-	subscribe(reqHandler: Function, errorHandler: Function) {
+	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
 		this.rpc.subscribe(reqHandler, errorHandler);
 	}
 
@@ -19,7 +20,9 @@ export class GeneralReceiver {
 		this.rpc.unsubscribe();
 	}
 
-	sendResponse(response: any) {
+	sendResponse(response: Response) {
 		return this.rpc.sendResponse(response);
 	}
+
+	ack(req: Request) {}
 }

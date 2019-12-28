@@ -1,12 +1,15 @@
 import {EventEmitter} from "events";
 import {GrpcClient} from "../../lib";
+import {Empty, kubemqClient, Request, Response, Subscribe} from "../../protos";
+import {ClientReadableStream} from "grpc";
 
 export class Responder extends EventEmitter {
-	public GRPCConnection = new GrpcClient();
-	public join?: any;
+	public join?: ClientReadableStream<Request>;
 
-	subscribeToRequests(subscribeRequest: any, reqHandler: Function, errorHandler: Function){
-		this.join = this.GRPCConnection.getKubeMQClient().SubscribeToRequests(subscribeRequest);
+	constructor(public client: kubemqClient) { super() }
+
+	subscribeToRequests(subscribeRequest: Subscribe, reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void){
+		this.join = this.client.subscribeToRequests(subscribeRequest);
 
 		this.join.on('error', errorHandler);
 		this.join.on('data', reqHandler);
@@ -16,12 +19,12 @@ export class Responder extends EventEmitter {
 
 	stop() {
 		console.log('Stop was called');
-		this.join.cancel();
+		this.join?.cancel();
 	}
 
-	sendResponse(request: any) {
+	sendResponse(request: Response) {
 		return new Promise((resolve, reject) => {
-			this.GRPCConnection.getKubeMQClient().SendResponse(request, (e: any, res: any) => {
+			this.client.sendResponse(request, (e: any, res: any) => {
 				if (e) reject(e);
 
 				resolve(res);
@@ -31,7 +34,7 @@ export class Responder extends EventEmitter {
 
 	ping() {
 		return new Promise((resolve, reject) => {
-			this.GRPCConnection.getKubeMQClient().Ping({}, (e: any, res: any) => {
+			this.client.ping(new Empty(), (e: any, res: any) => {
 				if (e) reject(e);
 
 				resolve(res);

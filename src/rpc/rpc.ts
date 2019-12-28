@@ -1,45 +1,48 @@
 import {CommandRequest, Initiator} from './lowLevel';
 import {Responder} from './lowLevel';
-import {RecieverType} from './general';
+import {ReceiverType} from './general';
+import {GrpcClient} from "../lib";
+import {Request, Response, Subscribe} from "../protos/generated";
 
 export class RPC {
-	public sender: Initiator = new Initiator();
+	private GRPCConnection = new GrpcClient();
+	public sender: Initiator = new Initiator(this.GRPCConnection.client);
 	public responder?: Responder;
-	constructor(public client: any, public channel: any, public type: RecieverType, public group?: string, public defaultTimeout: number = 1000) {}
+	constructor(public client: any, public channel: any, public type: ReceiverType, public group?: string, public defaultTimeout: number = 1000) {}
 
-	send(request: any) {
-		request.Channel = this.channel;
-		request.ClientID = this.client;
+	send(request: Request) {
+		request.setChannel(this.channel);
+		request.setClientid(this.client);
 
-		request.RequestTypeData = this.type;
+		request.setRequesttypedata(this.type);
 
-		if (!request.Timeout) {
-			request.Timeout = this.defaultTimeout;
-		}
+		if (!request.getTimeout()) request.setTimeout(this.defaultTimeout);
 
 		return this.sender.sendRequest(request);
 	}
 
-	subscribe(reqHandler: Function, errorHandler: Function) {
-		this.responder = new Responder();
-		let subRequest = {
-			SubscribeTypeData: this.type + 2,
-			ClientID: this.client,
-			Channel: this.channel,
-			Group: this.group
-		};
+	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
+		this.responder = new Responder(this.GRPCConnection.client);
+		let subRequest = new Subscribe();
+
+		// @ts-ignore TODO: 1|2|3|4 < number?
+		subRequest.setSubscribetypedata(this.type + 2);
+		subRequest.setClientid(this.client);
+		subRequest.setChannel(this.channel);
+		// @ts-ignore TODO: Type here is weird, not undefined but should be tbh
+		subRequest.setGroup(this.group);
+
 		this.responder.subscribeToRequests(subRequest, reqHandler, errorHandler);
 	}
 
 	unsubscribe() {
 		if (this.responder) this.responder.stop();
-
 	}
 
-	sendResponse(response: any) {
+	sendResponse(response: Response) {
 		if (!this.responder) throw new Error(`Responder not active`); // TODO: Clarify
 
-		response.ClientID = this.client;
+		response.setClientid(this.client);
 		return this.responder.sendResponse(response);
 	}
 }
