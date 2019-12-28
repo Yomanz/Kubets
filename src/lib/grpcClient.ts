@@ -27,9 +27,9 @@ export class GrpcClient {
 			if (clientCertFile) {
 				let contents = readFileSync(clientCertFile);
 				// TODO: Types for proto files (check shared)
-				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createSsl(contents))
+				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress', '127.0.0.1')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createSsl(contents))
 			} else {
-				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createInsecure())
+				this.client = new this.proto.service.kubemq(`${Config.get('KubeMQServerAddress', '127.0.0.1')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createInsecure())
 			}
 		}
 
