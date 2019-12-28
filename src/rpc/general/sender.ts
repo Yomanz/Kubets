@@ -1,7 +1,7 @@
 import {RPC} from "../rpc";
 import {ReceiverType} from "./receiver";
 import {CommandRequest} from "../lowLevel";
-import {Request} from "../../protos";
+import {Request, Response} from "../../protos";
 
 export class GeneralSender {
 	public rpc: RPC;
@@ -9,7 +9,7 @@ export class GeneralSender {
 		this.rpc = new RPC(client, channel, type, undefined,defaultTimeout);
 	}
 
-	send(request: Request) {
+	send(request: Request): Promise<Response> {
 		return this.rpc.send(request);
 	}
 }

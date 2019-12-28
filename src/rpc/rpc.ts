@@ -10,7 +10,7 @@ export class RPC {
 	public responder?: Responder;
 	constructor(public client: any, public channel: any, public type: ReceiverType, public group?: string, public defaultTimeout: number = 1000) {}
 
-	send(request: Request) {
+	send(request: Request): Promise<Response> {
 		request.setChannel(this.channel);
 		request.setClientid(this.client);
 

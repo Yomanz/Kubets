@@ -4,7 +4,7 @@ import {Empty, kubemqClient, PingResult, Request, Response} from "../../protos";
 export class Initiator {
 	constructor(public client: kubemqClient) {}
 
-	sendRequest(request: Request): Promise<Response> { // TODO: Types
+	sendRequest(request: Request): Promise<Response> {
 		return new Promise((resolve, reject) => {
 			this.client.sendRequest(request, (e: any, res: any) => {
 				if (e) reject(e);

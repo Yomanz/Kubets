@@ -14,15 +14,12 @@ request.setBody(Util.StringToByte('boris'));
 // console.log('moving up and down, side to side like a rollercoaster.');
 reciever.subscribe((cmd: Request) => {
 	console.log('Receiver got a hit for a message!');
-	const res = new Response();
 	let body = cmd.getBody();
 
-	res.setRequestid(cmd.getRequestid());
-	res.setReplychannel(cmd.getReplychannel());
 	if (typeof body !== 'string') body = new TextDecoder().decode(body);
 	console.log(body);
 
-	reciever.sendResponse(res).then((snd: any) => {
+	reciever.ack(cmd).then((snd: any) => {
 		console.log('Receiver has acknowledged request.!')
 	}).catch(console.log)
 }, (e: any) => {
@@ -32,13 +29,13 @@ reciever.subscribe((cmd: Request) => {
 
 setTimeout(() => {
 	console.log('We are about to send the message: ' + request.getBody());
-	sender.send(request).then((res: any) => {
+	sender.send(request).then((res: Response) => {
 		console.log('Sender has sent message successfully sent and it was acknowledged by the receiver.')
-		if (res.Error) {
-			console.log('Response error:' + res.Error);
+		if (res.getError()) {
+			console.log('Response error:' + res.getError());
 			return;
 		}
-		console.log(res)
+		// console.log(res)
 		// console.log('Response Received: ' + res.RequestID + ' ExecutedAt: ' + res.Timestamp);
 	}).catch((e: any) => {
 		console.log('pub error')
