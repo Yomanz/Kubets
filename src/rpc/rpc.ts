@@ -2,7 +2,7 @@ import {CommandRequest, Initiator} from './lowLevel';
 import {Responder} from './lowLevel';
 import {ReceiverType} from './general';
 import {GrpcClient} from "../lib";
-import {Request, Response, Subscribe} from "../protos/generated";
+import {Empty, Request, Response, Subscribe} from "../protos/generated";
 
 export class RPC {
 	private GRPCConnection = new GrpcClient();
@@ -39,7 +39,7 @@ export class RPC {
 		if (this.responder) this.responder.stop();
 	}
 
-	sendResponse(response: Response) {
+	async sendResponse(response: Response): Promise<Empty> {
 		if (!this.responder) throw new Error(`Responder not active`); // TODO: Clarify
 
 		response.setClientid(this.client);

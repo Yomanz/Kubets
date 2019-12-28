@@ -22,7 +22,7 @@ export class Responder extends EventEmitter {
 		this.join?.cancel();
 	}
 
-	sendResponse(request: Response) {
+	sendResponse(request: Response): Promise<Empty> {
 		return new Promise((resolve, reject) => {
 			this.client.sendResponse(request, (e: any, res: any) => {
 				if (e) reject(e);

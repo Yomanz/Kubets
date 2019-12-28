@@ -1,5 +1,5 @@
 import {RPC} from "../rpc";
-import {Request, Response} from "../../protos";
+import {Empty, Request, Response} from "../../protos";
 
 export enum ReceiverType {
 	Commands = 1,
@@ -20,9 +20,14 @@ export class GeneralReceiver {
 		this.rpc.unsubscribe();
 	}
 
-	sendResponse(response: Response) {
+	async sendResponse(response: Response): Promise<Empty> {
 		return this.rpc.sendResponse(response);
 	}
 
-	ack(req: Request) {}
+	async ack(cmd: Request, res: Response = new Response()): Promise<Empty> {
+		res.setRequestid(cmd.getRequestid());
+		res.setReplychannel(cmd.getReplychannel());
+
+		return this.sendResponse(res)
+	}
 }
