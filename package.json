@@ -3,6 +3,7 @@
   "version": "v0.0.1",
   "license": "MIT",
   "main": "compiled/index.js",
+  "repository": "https://github.com/Yomanz/KubeMQ-ts",
   "author": "Daave <daave@aaathats3as.com>",
   "scripts": {
     "build:proto": "protoc ./kubemq.proto --js_out=\"./generated\" --plugin=\"protoc-gen-ts=../node_modules/.bin/protoc-gen-ts\" --ts_out=\"./generated\"",
