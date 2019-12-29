@@ -1,5 +1,4 @@
 import {Initiator, Responder} from './lowLevel';
-import {ReceiverType} from './general';
 import {GrpcClient} from '../lib';
 import {Empty, Request, Response, Subscribe} from '../protos/generated';
 import {Settings} from "../interfaces";

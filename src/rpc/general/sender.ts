@@ -1,6 +1,4 @@
 import {RPC} from "../rpc";
-import {ReceiverType} from "./receiver";
-import {CommandRequest} from "../lowLevel";
 import {Request, Response} from "../../protos";
 import {Settings} from "../../interfaces";
 

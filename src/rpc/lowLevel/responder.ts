@@ -1,5 +1,4 @@
 import {EventEmitter} from "events";
-import {GrpcClient} from "../../lib";
 import {Empty, kubemqClient, Request, Response, Subscribe} from "../../protos";
 import {ClientReadableStream} from "grpc";
 
