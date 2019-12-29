@@ -1,4 +1,3 @@
-import { GrpcClient } from "../../lib";
 import {Empty, kubemqClient, PingResult, Request, Response} from "../../protos";
 
 export class Initiator {

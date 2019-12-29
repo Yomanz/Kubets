@@ -1,14 +1,18 @@
-import {CommandRequest, Initiator} from './lowLevel';
-import {Responder} from './lowLevel';
+import {Initiator, Responder} from './lowLevel';
 import {ReceiverType} from './general';
-import {GrpcClient} from "../lib";
-import {Empty, Request, Response, Subscribe} from "../protos/generated";
+import {GrpcClient} from '../lib';
+import {Empty, Request, Response, Subscribe} from '../protos/generated';
 
 export class RPC {
 	private GRPCConnection = new GrpcClient();
 	public sender: Initiator = new Initiator(this.GRPCConnection.client);
 	public responder?: Responder;
 	constructor(public client: any, public channel: any, public type: ReceiverType, public group?: string, public defaultTimeout: number = 1000) {}
+
+	close(): void {
+		this.GRPCConnection.client.close();
+		this.responder?.stop();
+	}
 
 	send(request: Request): Promise<Response> {
 		request.setChannel(this.channel);
