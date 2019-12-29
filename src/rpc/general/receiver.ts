@@ -1,5 +1,6 @@
 import {RPC} from "../rpc";
 import {Empty, Request, Response} from "../../protos";
+import {Settings} from "../../interfaces";
 
 export enum ReceiverType {
 	Commands = 1,
@@ -8,8 +9,8 @@ export enum ReceiverType {
 
 export class GeneralReceiver {
 	public rpc: RPC;
-	constructor(client: string, channel: string, type: ReceiverType, group?: string, defaultTimeout: number = 1000) {
-		this.rpc = new RPC(client, channel, type, group, defaultTimeout);
+	constructor(private settings: Settings) {
+		this.rpc = new RPC(this.settings);
 	}
 
 	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {

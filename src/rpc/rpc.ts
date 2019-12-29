@@ -2,12 +2,13 @@ import {Initiator, Responder} from './lowLevel';
 import {ReceiverType} from './general';
 import {GrpcClient} from '../lib';
 import {Empty, Request, Response, Subscribe} from '../protos/generated';
+import {Settings} from "../interfaces";
 
 export class RPC {
-	private GRPCConnection = new GrpcClient();
+	private GRPCConnection = new GrpcClient(this.settings);
 	public sender: Initiator = new Initiator(this.GRPCConnection.client);
 	public responder?: Responder;
-	constructor(public client: any, public channel: any, public type: ReceiverType, public group?: string, public defaultTimeout: number = 1000) {}
+	constructor(private settings: Settings) {}
 
 	close(): void {
 		this.GRPCConnection.client.close();
@@ -15,12 +16,12 @@ export class RPC {
 	}
 
 	send(request: Request): Promise<Response> {
-		request.setChannel(this.channel);
-		request.setClientid(this.client);
+		request.setChannel(this.settings.channel);
+		request.setClientid(this.settings.client);
 
-		request.setRequesttypedata(this.type);
+		request.setRequesttypedata(this.settings.type);
 
-		if (!request.getTimeout()) request.setTimeout(this.defaultTimeout);
+		if (!request.getTimeout()) request.setTimeout(this.settings.defaultTimeout || 1000);
 
 		return this.sender.sendRequest(request);
 	}
@@ -31,10 +32,10 @@ export class RPC {
 
 		// @ts-ignore TODO: 1|2|3|4 < number?
 		subRequest.setSubscribetypedata(this.type + 2);
-		subRequest.setClientid(this.client);
-		subRequest.setChannel(this.channel);
+		subRequest.setClientid(this.settings.client);
+		subRequest.setChannel(this.settings.channel);
 		// @ts-ignore TODO: Type here is weird, not undefined but should be tbh
-		subRequest.setGroup(this.group);
+		subRequest.setGroup(this.settings.group);
 
 		this.responder.subscribeToRequests(subRequest, reqHandler, errorHandler);
 	}
@@ -46,7 +47,7 @@ export class RPC {
 	async sendResponse(response: Response): Promise<Empty> {
 		if (!this.responder) throw new Error(`Responder not active`); // TODO: Clarify
 
-		response.setClientid(this.client);
+		response.setClientid(this.settings.client);
 		return this.responder.sendResponse(response);
 	}
 }

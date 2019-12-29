@@ -2,21 +2,22 @@ import {credentials} from 'grpc';
 import {Config} from '../classes';
 import {readFileSync} from 'fs';
 import {kubemqClient} from '../protos/generated';
+import {Settings} from "../interfaces";
 
 export class GrpcClient {
 	public client: kubemqClient = this.createClient(); // TODO: Types for this, Check it is actually always available.
 	private metadata: any[] = [];
+	constructor(protected settings: Settings) {}
 
 	createClient(): kubemqClient {
 		let client: kubemqClient;
 		this.metadata = ["X-Kubemq-Server-Token", Config.get('KubeMQRegistrationKey')];
-		const clientCertFile = Config.get('KubeMQCertificateFile');
 
-		if (clientCertFile) {
-			let contents = readFileSync(clientCertFile);
-			client = new kubemqClient(`${Config.get('KubeMQServerAddress', '127.0.0.1')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createSsl(contents));
+		if (this.settings.cert) {
+			let contents = readFileSync(this.settings.cert);
+			client = new kubemqClient(`${this.settings.options}:${this.settings.port}`, credentials.createSsl(contents));
 		} else {
-			client = new kubemqClient(`${Config.get('KubeMQServerAddress', '127.0.0.1')}:${Config.get('KubeMQServerPort', 50000)}`, credentials.createInsecure());
+			client = new kubemqClient(`${this.settings.options}:${this.settings.port}`, credentials.createInsecure());
 		}
 
 		return client;

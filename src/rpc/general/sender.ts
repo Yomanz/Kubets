@@ -2,11 +2,12 @@ import {RPC} from "../rpc";
 import {ReceiverType} from "./receiver";
 import {CommandRequest} from "../lowLevel";
 import {Request, Response} from "../../protos";
+import {Settings} from "../../interfaces";
 
 export class GeneralSender {
 	public rpc: RPC;
-	constructor(client: string, channel: string, type: ReceiverType, defaultTimeout: number = 1000) {
-		this.rpc = new RPC(client, channel, type, undefined,defaultTimeout);
+	constructor(private settings: Settings) {
+		this.rpc = new RPC(this.settings);
 	}
 
 	send(request: Request): Promise<Response> {
