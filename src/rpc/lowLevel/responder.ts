@@ -2,10 +2,10 @@ import {EventEmitter} from "events";
 import {Empty, kubemqClient, Request, Response, Subscribe} from "../../protos";
 import {ClientReadableStream} from "grpc";
 
-export class Responder extends EventEmitter {
+export class Responder {
 	public join?: ClientReadableStream<Request>;
 
-	constructor(public client: kubemqClient) { super() }
+	constructor(public client: kubemqClient) {}
 
 	subscribeToRequests(subscribeRequest: Subscribe, reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void){
 		this.join = this.client.subscribeToRequests(subscribeRequest);
