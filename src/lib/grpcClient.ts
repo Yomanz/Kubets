@@ -15,9 +15,9 @@ export class GrpcClient {
 
 		if (this.settings.cert) {
 			let contents = readFileSync(this.settings.cert);
-			client = new kubemqClient(`${this.settings.options}:${this.settings.port}`, credentials.createSsl(contents));
+			client = new kubemqClient(`${this.settings.host}:${this.settings.port}`, credentials.createSsl(contents), this.settings.options);
 		} else {
-			client = new kubemqClient(`${this.settings.options}:${this.settings.port}`, credentials.createInsecure());
+			client = new kubemqClient(`${this.settings.host}:${this.settings.port}`, credentials.createInsecure(), this.settings.options);
 		}
 
 		return client;
