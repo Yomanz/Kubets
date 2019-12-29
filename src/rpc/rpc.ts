@@ -30,11 +30,10 @@ export class RPC {
 		let subRequest = new Subscribe();
 
 		// @ts-ignore TODO: 1|2|3|4 < number?
-		subRequest.setSubscribetypedata(this.type + 2);
+		subRequest.setSubscribetypedata(this.settings.type + 2);
 		subRequest.setClientid(this.settings.client);
 		subRequest.setChannel(this.settings.channel);
-		// @ts-ignore TODO: Type here is weird, not undefined but should be tbh
-		subRequest.setGroup(this.settings.group);
+		subRequest.setGroup(this.settings.group || '');
 
 		this.responder.subscribeToRequests(subRequest, reqHandler, errorHandler);
 	}
