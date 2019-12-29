@@ -5,7 +5,7 @@ import {Settings} from "../interfaces";
 
 export class RPC {
 	private GRPCConnection = new GrpcClient(this.settings);
-	public sender: Initiator = new Initiator(this.GRPCConnection.client);
+	public initiator: Initiator = new Initiator(this.GRPCConnection.client);
 	public responder?: Responder;
 	constructor(private settings: Settings) {}
 
@@ -22,7 +22,7 @@ export class RPC {
 
 		if (!request.getTimeout()) request.setTimeout(this.settings.defaultTimeout || 1000);
 
-		return this.sender.sendRequest(request);
+		return this.initiator.sendRequest(request);
 	}
 
 	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
