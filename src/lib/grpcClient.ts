@@ -5,8 +5,8 @@ import {kubemqClient} from '../protos/generated';
 import {Settings} from "../interfaces";
 
 export class GrpcClient {
-	public client: kubemqClient = this.createClient(); // TODO: Types for this, Check it is actually always available.
-	private metadata: any[] = [];
+	protected client: kubemqClient = this.createClient(); // TODO: Types for this, Check it is actually always available.
+	protected metadata: any[] = [];
 	constructor(protected settings: Settings) {}
 
 	createClient(): kubemqClient {

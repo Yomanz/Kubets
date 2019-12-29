@@ -3,14 +3,13 @@ import {Settings} from "../interfaces";
 import {Taker, Giver} from "./lowLevel";
 import {Event, Result, Subscribe} from "../protos/generated";
 
-export class PubSub {
-	public GRPCConnection = new GrpcClient(this.settings);
-	public giver: Giver = new Giver(this.GRPCConnection.client);
+export class PubSub extends GrpcClient {
+	public giver: Giver = new Giver(this.client);
 	public taker?: Taker;
-	constructor(private settings: Settings) {}
+	constructor(settings: Settings) { super(settings) }
 
 	close(): void {
-		this.GRPCConnection.client.close();
+		this.client.close();
 		this.taker?.stop();
 	}
 
@@ -22,7 +21,7 @@ export class PubSub {
 	}
 
 	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
-		this.taker = new Taker(this.GRPCConnection.client);
+		this.taker = new Taker(this.client);
 
 		const sub = new Subscribe();
 		// @ts-ignore TODO: 1|2|3|4 < number?

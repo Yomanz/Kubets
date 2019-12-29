@@ -3,14 +3,13 @@ import {GrpcClient} from '../lib';
 import {Empty, Request, Response, Subscribe} from '../protos/generated';
 import {Settings} from "../interfaces";
 
-export class RPC {
-	private GRPCConnection = new GrpcClient(this.settings);
-	public initiator: Initiator = new Initiator(this.GRPCConnection.client);
+export class RPC extends GrpcClient {
+	public initiator: Initiator = new Initiator(this.client);
 	public responder?: Responder;
-	constructor(private settings: Settings) {}
+	constructor(settings: Settings) { super(settings) }
 
 	close(): void {
-		this.GRPCConnection.client.close();
+		this.client.close();
 		this.responder?.stop();
 	}
 
@@ -26,7 +25,7 @@ export class RPC {
 	}
 
 	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
-		this.responder = new Responder(this.GRPCConnection.client);
+		this.responder = new Responder(this.client);
 		let subRequest = new Subscribe();
 
 		// @ts-ignore TODO: 1|2|3|4 < number?
