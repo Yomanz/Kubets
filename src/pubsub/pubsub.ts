@@ -4,8 +4,8 @@ import {Taker, Giver} from "./lowLevel";
 import {Event, Result, Subscribe} from "../protos/generated";
 
 export class PubSub extends GrpcClient {
-	public giver: Giver = new Giver(this.client);
-	public taker?: Taker;
+	protected giver: Giver = new Giver(this.client);
+	protected taker?: Taker;
 	constructor(settings: Settings) { super(settings) }
 
 	close(): void {
