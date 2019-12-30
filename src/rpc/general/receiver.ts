@@ -7,22 +7,19 @@ export enum ReceiverType {
 	Query = 2
 }
 
-export class GeneralReceiver {
-	public rpc: RPC;
-	constructor(private settings: Settings) {
-		this.rpc = new RPC(this.settings);
-	}
+export class GeneralReceiver extends RPC {
+	constructor(settings: Settings) { super(settings) }
 
 	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
-		this.rpc.subscribe(reqHandler, errorHandler);
+		super.subscribe(reqHandler, errorHandler);
 	}
 
 	unsubscribe() {
-		this.rpc.unsubscribe();
+		super.unsubscribe();
 	}
 
 	async sendResponse(response: Response): Promise<Empty> {
-		return this.rpc.sendResponse(response);
+		return super.sendResponse(response);
 	}
 
 	async ack(cmd: Request, res: Response = new Response()): Promise<Empty> {

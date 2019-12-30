@@ -4,8 +4,8 @@ import {Empty, Request, Response, Subscribe} from '../protos/generated';
 import {Settings} from "../interfaces";
 
 export class RPC extends GrpcClient {
-	public initiator: Initiator = new Initiator(this.client);
-	public responder?: Responder;
+	protected initiator: Initiator = new Initiator(this.client);
+	protected responder?: Responder;
 	constructor(settings: Settings) { super(settings) }
 
 	close(): void {
