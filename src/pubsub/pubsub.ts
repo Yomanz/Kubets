@@ -13,14 +13,14 @@ export class PubSub extends GrpcClient {
 		this.taker?.stop();
 	}
 
-	send(event: Event): Promise<Result> {
+	protected send(event: Event): Promise<Result> {
 		event.setChannel(this.settings.channel);
 		event.setClientid(this.settings.client);
 
 		return this.giver.sendEvent(event);
 	}
 
-	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
+	protected subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
 		this.taker = new Taker(this.client);
 
 		const sub = new Subscribe();
@@ -33,7 +33,7 @@ export class PubSub extends GrpcClient {
 		this.taker.subscribeToEvents(sub, reqHandler, errorHandler);
 	}
 
-	unsubscribe() {
+	protected unsubscribe() {
 		if (this.taker) this.taker.stop();
 	}
 }

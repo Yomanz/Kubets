@@ -13,7 +13,7 @@ export class RPC extends GrpcClient {
 		this.responder?.stop();
 	}
 
-	send(request: Request): Promise<Response> {
+	protected send(request: Request): Promise<Response> {
 		request.setChannel(this.settings.channel);
 		request.setClientid(this.settings.client);
 
@@ -24,7 +24,7 @@ export class RPC extends GrpcClient {
 		return this.initiator.sendRequest(request);
 	}
 
-	subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
+	protected subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
 		this.responder = new Responder(this.client);
 		let subRequest = new Subscribe();
 
@@ -37,11 +37,11 @@ export class RPC extends GrpcClient {
 		this.responder.subscribeToRequests(subRequest, reqHandler, errorHandler);
 	}
 
-	unsubscribe() {
+	protected unsubscribe() {
 		if (this.responder) this.responder.stop();
 	}
 
-	async sendResponse(response: Response): Promise<Empty> {
+	protected async sendResponse(response: Response): Promise<Empty> {
 		if (!this.responder) throw new Error(`Responder not active`); // TODO: Clarify
 
 		response.setClientid(this.settings.client);
