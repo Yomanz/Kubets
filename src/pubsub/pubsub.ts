@@ -1,12 +1,13 @@
 import {GrpcClient} from "../lib";
-import {Settings} from "../interfaces";
-import {Taker, Giver} from "./lowLevel";
+import {PubSubSettings, Settings, StoreProperties, SubscribeType} from "../interfaces";
+import {Giver, Taker} from "./lowLevel";
 import {Event, Result, Subscribe} from "../protos/generated";
 
 export class PubSub extends GrpcClient {
+	protected store: any = false; // TODO: Create an EventStore
 	protected giver: Giver = new Giver(this.client);
 	protected taker?: Taker;
-	constructor(settings: Settings) { super(settings) }
+	constructor(settings: PubSubSettings) { super(settings) }
 
 	close(): void {
 		this.client.close();
@@ -20,15 +21,23 @@ export class PubSub extends GrpcClient {
 		return this.giver.sendEvent(event);
 	}
 
-	protected subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
+	protected subscribe(reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void, storeProperties?: StoreProperties) {
 		this.taker = new Taker(this.client);
 
 		const sub = new Subscribe();
-		// @ts-ignore TODO: 1|2|3|4 < number?
-		sub.setSubscribetypedata(this.settings.type + 2);
-		sub.setClientid(this.settings.client);
-		sub.setChannel(this.settings.channel);
-		sub.setGroup(this.settings.group || '');
+		// if (storeProperties) {
+		// 	sub.setEventsstoretypedata(storeProperties.Eventsstoretypedata);
+		// 	sub.setEventsstoretypevalue(storeProperties.Eventsstoretypevalue);
+		// }
+		// sub.setClientid(this.settings.client);
+		// sub.setChannel(this.settings.channel);
+		sub.setSubscribetypedata(
+			1
+		);
+
+		console.log(sub.toObject())
+
+		// sub.setGroup(this.settings.group);
 
 		this.taker.subscribeToEvents(sub, reqHandler, errorHandler);
 	}
