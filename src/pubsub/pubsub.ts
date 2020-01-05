@@ -26,15 +26,18 @@ export class PubSub extends GrpcClient {
 
 		const sub = new Subscribe();
 		// if (storeProperties) {
-		// 	sub.setEventsstoretypedata(storeProperties.Eventsstoretypedata);
-		// 	sub.setEventsstoretypevalue(storeProperties.Eventsstoretypevalue);
+			// @ts-ignore
+			sub.setEventsstoretypedata(undefined);
+			// @ts-ignore
+			sub.setEventsstoretypevalue(undefined);
 		// }
-		// sub.setClientid(this.settings.client);
-		// sub.setChannel(this.settings.channel);
+		sub.setClientid(this.settings.client);
+		sub.setChannel(this.settings.channel);
 		sub.setSubscribetypedata(
 			1
 		);
 
+		console.log(sub);
 		console.log(sub.toObject())
 
 		// sub.setGroup(this.settings.group);

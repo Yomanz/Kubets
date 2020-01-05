@@ -6,7 +6,7 @@ import {Settings} from "../interfaces";
 export class RPC extends GrpcClient {
 	protected initiator: Initiator = new Initiator(this.client);
 	protected responder?: Responder;
-	constructor(settings: Settings) { super(settings) }
+	constructor(protected rpcSettings: Settings) { super(rpcSettings) }
 
 	close(): void {
 		this.client.close();
@@ -14,12 +14,12 @@ export class RPC extends GrpcClient {
 	}
 
 	protected send(request: Request): Promise<Response> {
-		request.setChannel(this.settings.channel);
-		request.setClientid(this.settings.client);
+		request.setChannel(this.rpcSettings.channel);
+		request.setClientid(this.rpcSettings.client);
 
-		request.setRequesttypedata(this.settings.type);
+		request.setRequesttypedata(this.rpcSettings.type);
 
-		if (!request.getTimeout()) request.setTimeout(this.settings.defaultTimeout || 1000);
+		if (!request.getTimeout()) request.setTimeout(this.rpcSettings.defaultTimeout || 3000);
 
 		return this.initiator.sendRequest(request);
 	}
@@ -29,10 +29,10 @@ export class RPC extends GrpcClient {
 		let subRequest = new Subscribe();
 
 		// @ts-ignore TODO: 1|2|3|4 < number?
-		subRequest.setSubscribetypedata(this.settings.type + 2);
-		subRequest.setClientid(this.settings.client);
-		subRequest.setChannel(this.settings.channel);
-		subRequest.setGroup(this.settings.group || '');
+		subRequest.setSubscribetypedata(this.rpcSettings.type + 2);
+		subRequest.setClientid(this.rpcSettings.client);
+		subRequest.setChannel(this.rpcSettings.channel);
+		subRequest.setGroup(this.rpcSettings.group || '');
 
 		this.responder.subscribeToRequests(subRequest, reqHandler, errorHandler);
 	}
