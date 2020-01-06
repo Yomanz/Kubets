@@ -16,9 +16,7 @@ export enum EventStoreType {
 export enum SubscribeType {
 	SubscribeTypeUndefined,
 	Events,
-	EventsStore,
-	Commands,
-	Queries,
+	EventsStore
 }
 
  export interface  PubSubSettings {

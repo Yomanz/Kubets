@@ -9,7 +9,7 @@ export class Taker {
 	constructor(public client: kubemqClient) {}
 
 	subscribeToEvents(subscribeRequest: Subscribe, reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void){
-		this.join = this.client.subscribeToRequests(subscribeRequest);
+		this.join = this.client.subscribeToEvents(subscribeRequest);
 
 		this.join.on('error', errorHandler);
 		this.join.on('data', reqHandler);
