@@ -22,6 +22,7 @@ export enum SubscribeType {
 	 port: number,
 	 cert?: string,
 	 group?: string,
+	 type?: 0 | 1 | 2 | 3 | 4,
 	 options?: Options,
 	 defaultTimeout?: number
  }
