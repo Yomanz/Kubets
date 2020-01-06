@@ -2,11 +2,6 @@ import {RPC} from "../rpc";
 import {Empty, Request, Response} from "../../protos";
 import {Settings} from "../../interfaces";
 
-export enum ReceiverType {
-	Commands = 1,
-	Query = 2
-}
-
 export class GeneralReceiver extends RPC {
 	constructor(settings: Settings) { super(settings) }
 

@@ -1,4 +1,7 @@
-import {ReceiverType} from "./rpc/general";
+export enum ReceiverType {
+	Commands = 1,
+	Query = 2
+}
 
 export enum EventStoreType {
 	Undefined,
@@ -11,8 +14,11 @@ export enum EventStoreType {
 }
 
 export enum SubscribeType {
-	Events = 1,
-	EventStore = 2
+	SubscribeTypeUndefined,
+	Events,
+	EventsStore,
+	Commands,
+	Queries,
 }
 
  export interface  PubSubSettings {
@@ -22,7 +28,7 @@ export enum SubscribeType {
 	 port: number,
 	 cert?: string,
 	 group?: string,
-	 type?: 0 | 1 | 2 | 3 | 4,
+	 type?: SubscribeType,
 	 options?: Options,
 	 defaultTimeout?: number
  }

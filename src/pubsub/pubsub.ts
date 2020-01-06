@@ -31,7 +31,7 @@ export class PubSub extends GrpcClient {
 		}
 		sub.setClientid(this.settings.client);
 		sub.setChannel(this.settings.channel);
-		sub.setSubscribetypedata(this.settings.type || 0);
+		sub.setSubscribetypedata(this.settings.type || 3);
 
 		this.taker.subscribeToEvents(sub, reqHandler, errorHandler);
 	}
