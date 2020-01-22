@@ -1,8 +1,7 @@
 {
   "name": "kubets",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "license": "MIT",
-  "main": "compiled/index.js",
   "repository": "https://github.com/Yomanz/KubeMQ-ts",
   "author": "Daave <daave@aaathats3as.com>",
   "main": "compiled/index.js",
@@ -12,8 +11,6 @@
   ],
   "scripts": {
     "prepublishOnly": "yarn build",
-    "preBuild": "yarn build:proto",
-    "postBuild": "",
     "build": "tsc",
     "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:.\\src\\protos\\generated --plugin=\"protoc-gen-grpc,proto-gen-ts=..\\node_modules\\.bin\\protoc-gen-ts\" .\\src\\protos\\grpc\\kubemq.proto"
   },
