@@ -1,8 +1,9 @@
-import {GeneralReceiver, GeneralSender, ReceiverType} from "../src/rpc";
+import {GeneralReceiver, GeneralSender} from "../src/rpc";
 import {TextDecoder} from 'text-encoding';
-import {Config, Util} from "../src/classes";
-import {Event, Request, Response, Subscribe} from "../src/protos";
-import {Giver, Publisher, Subscriber} from "../src/pubsub";
+import {Config} from "../src/classes";
+import {Event, Request, Response} from "../src/protos";
+import {Publisher, Subscriber} from "../src/pubsub";
+import {EventStoreType, ReceiverType, SubscribeType} from "../src";
 
 
 const reciever = new GeneralReceiver({
@@ -13,20 +14,20 @@ const reciever = new GeneralReceiver({
 	type: ReceiverType.Query,
 	defaultTimeout: 50000
 });
-const pubsub = new Publisher({
+const publisher = new Publisher({
 	host: Config.get('KubeMQServerAddress', '127.0.0.1'),
 	port: Config.get('KubeMQServerPort', 50000),
 	channel: 'testing_Command_channel',
-	client: 'hello-world-sender',
-	type: ReceiverType.Query,
+	client: 'hello-world-pub',
+	type: SubscribeType.Events,
 	defaultTimeout: 50000
 });
-const eater = new Subscriber({
+const subscriber = new Subscriber({
 	host: Config.get('KubeMQServerAddress', '127.0.0.1'),
 	port: Config.get('KubeMQServerPort', 50000),
 	channel: 'testing_Command_channel',
-	client: 'hello-world-sender',
-	type: ReceiverType.Query,
+	client: 'hello-world-sub',
+	type: SubscribeType.Events,
 	defaultTimeout: 50000
 });
 const sender = new GeneralSender({
@@ -50,7 +51,17 @@ function generate_random_data1(size: number){
 	return random_data.join('');
 }
 
-const bigData = Buffer.from(generate_random_data1(2216839));
+const bigData = Buffer.from(generate_random_data1(32));
+
+subscriber.subscribe(console.log, console.error);
+
+setTimeout(() => {
+	console.log('yes')
+	const event2 = new Event();
+	event2.setBody(Buffer.from('beans'))
+	publisher.send(event2);
+}, 2000);
+
 
 let request = new Request();
 request.setBody(Buffer.from("lmao pass it over"));
