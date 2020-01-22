@@ -9,13 +9,52 @@ A **KubeMQ Library for Typescript** enables Typescript developers to communicate
 ## Install me
 [NPM Package](https://www.npmjs.com/package/kubets) is the best way to install this.
 
-## Environmental Variables.
-The only **required** configuration setting is the KubeMQ server address.
-You can only use environmental variables to specify connection information. If you don't use environmental variables you can do something like
-```ts
-process.env.KubeMQServerAddress = '127.0.0.1'
-process.env.KubeMQServerPort = 50000
-process.env['KubeMQCertificateFile'] = 'cert.pem'
+## Examples
+###### Initialising the classes.
+```typescript
+import { ReceiverType, GeneralReceiver, GeneralSender } from 'kubets'
+const reciever = new GeneralReceiver({
+	host: '127.0.0.1',
+	port: 50000,
+	channel: 'testing_Command_channel',
+	client: 'hello-world-receiver',
+	type: ReceiverType.Query,
+	defaultTimeout: 50000
+});
+const sender = new GeneralSender({
+	host: '127.0.0.1',
+	port: 50000,
+	channel: 'testing_Command_channel',
+	client: 'hello-world-sender',
+	type: ReceiverType.Query,
+	defaultTimeout: 50000
+});
 ```
-That is also, conveniently,  all of the *current* configurable options.
 
+###### Listening to a message via RPC.
+```typescript
+import { Request, Response } from 'kubets';
+receiver.subscribe(async (cmd: Request) => {
+    console.log('Received a message.')
+    // ...
+
+    const res = new Response();
+    res.setBody(Buffer.from('example body!'))
+    await receiver.ack(cmd, res);
+})
+```
+
+###### Sending a message via RPC.
+```typescript
+import { Request } from 'kubets'
+
+const request = new Request();
+request.setBody(Buffer.from(JSON.stringify({
+    data: 'xxxx',
+    moreData: 50513
+})));
+request.setTimeout(10000);
+
+const res = await sender.send(request);
+res.xxx
+```
