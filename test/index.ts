@@ -64,11 +64,11 @@ setTimeout(() => {
 
 
 let request = new Request();
-request.setBody(Buffer.from("lmao pass it over"));
+request.setBody(Buffer.from("request data"));
 request.setTimeout(10000);
 
 const event = new Event();
-event.setBody(Buffer.from("yeah are u"));
+event.setBody(Buffer.from("event data"));
 event.setClientid('gateway');
 event.setChannel('test');
 
