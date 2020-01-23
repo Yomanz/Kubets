@@ -2,7 +2,6 @@
 # KubeTS - A typesafe wrapper for KubeMQ.
 
 [![Downloads](https://img.shields.io/npm/dt/kubets.svg)](https://www.npmjs.com/package/kubets)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/kubets)](https://www.npmjs.com/package/kubets)
 [![Version](https://img.shields.io/npm/v/kubets.svg)](https://www.npmjs.com/package/kubets)
 [![License](https://img.shields.io/npm/l/kubets)](https://www.npmjs.com/package/kubets)
 ---
@@ -17,7 +16,7 @@ A **KubeMQ Library for Typescript** enables Typescript developers to communicate
 ###### First steps
 ```bash
 yarn add kubets
-// OR
+Or
 npm i -s kubets
 ```
 ###### Initialising the classes.
