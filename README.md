@@ -1,15 +1,25 @@
 
-# KubeTS
-```
-**Warning**
-Although this works, it is in early development and not all of KubeMQ is supported at this current time.
-```
-A **KubeMQ Library for Typescript** enables Typescript developers to communicate with [KubeMQ](https://kubemq.io/) server in a, mostly, type-safe way!.
+# KubeTS - A typesafe wrapper for KubeMQ.
 
-## Install me
-[NPM Package](https://www.npmjs.com/package/kubets) is the best way to install this.
+[![Downloads](https://img.shields.io/npm/dt/kubets.svg)](https://www.npmjs.com/package/kubets)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/kubets)](https://www.npmjs.com/package/kubets)
+[![Version](https://img.shields.io/npm/v/kubets.svg)](https://www.npmjs.com/package/kubets)
+[![License](https://img.shields.io/npm/l/kubets)](https://www.npmjs.com/package/kubets)
+---
+
+A **KubeMQ Library for Typescript** enables Typescript developers to communicate with [KubeMQ](https://kubemq.io/) server in a type-safe way!.
+
+## Prerequisites
+[KubeMQ](https://kubemq.io/) is what powers the library!
+[NPM Package](https://www.npmjs.com/package/kubets) is the best way to install this package.
 
 ## Examples
+###### First steps
+```bash
+yarn add kubets
+// OR
+npm i -s kubets
+```
 ###### Initialising the classes.
 ```typescript
 import { ReceiverType, GeneralReceiver, GeneralSender } from 'kubets'
