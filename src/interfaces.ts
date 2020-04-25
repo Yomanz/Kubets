@@ -19,7 +19,7 @@ export enum SubscribeType {
 	EventsStore
 }
 
- export interface  PubSubSettings {
+export interface  PubSubSettings {
 	 client: string,
 	 channel: string,
 	 host: string,
@@ -29,7 +29,18 @@ export enum SubscribeType {
 	 type?: SubscribeType,
 	 options?: Options,
 	 defaultTimeout?: number
- }
+}
+
+export interface QueueSettings {
+	queue: string,
+	client: string,
+	maxNumberOfMessage: number,
+	waitTime?: number,
+	host: string,
+	port: number,
+	cert?: string,
+	options?: Options
+}
 
 export interface Settings {
 	client: string,
