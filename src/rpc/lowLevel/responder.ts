@@ -7,7 +7,7 @@ export class Responder {
 
 	constructor(public client: kubemqClient) {}
 
-	subscribeToRequests(subscribeRequest: Subscribe, reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void){
+	subscribeToRequests(subscribeRequest: Subscribe, reqHandler: (...args: any[]) => void, errorHandler: (...args: any[]) => void) {
 		this.join = this.client.subscribeToRequests(subscribeRequest);
 
 		this.join.on('error', errorHandler);
