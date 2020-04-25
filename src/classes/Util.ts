@@ -1,13 +1,19 @@
+import { v4 ,v5 } from 'uuid';
+
 export class Util {
-	constructor() {
+	private constructor() {
 		throw new Error(`This class can't be initialized.`)
 	}
 
-	public static StringToByte(str: string): Buffer {
+	public static generateId() {
+		return v4()
+	}
+
+	public static stringToByte(str: string): Buffer {
 		return Buffer.from(str);
 	}
 
-	public static BytesToString(bytes: Uint8Array) {
+	public static bytesToString(bytes: Uint8Array) {
 		const chars = [];
 		for(let i = 0, n = bytes.length; i < n;) {
 			chars.push(((bytes[i++] & 0xff) << 8) | (bytes[i++] & 0xff));

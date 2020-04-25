@@ -2,12 +2,12 @@ import {credentials} from 'grpc';
 import {Config} from '../classes';
 import {readFileSync} from 'fs';
 import {kubemqClient} from '../protos/generated';
-import {PubSubSettings, Settings} from "../interfaces";
+import {PubSubSettings, QueueSettings, Settings} from "../interfaces";
 
 export class GrpcClient {
 	protected client: kubemqClient = this.createClient(); // TODO: Types for this, Check it is actually always available.
 	protected metadata: any[] = [];
-	constructor(protected settings: PubSubSettings | Settings) {}
+	constructor(protected settings: PubSubSettings | Settings | QueueSettings) {}
 
 	createClient(): kubemqClient {
 		let client: kubemqClient;
