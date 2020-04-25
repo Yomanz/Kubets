@@ -34,8 +34,8 @@ export interface  PubSubSettings {
 export interface QueueSettings {
 	queue: string,
 	client: string,
-	maxNumberOfMessage: number,
-	waitTime?: number,
+	maxNumberOfMessage?: number,
+	waitTime: number,
 	host: string,
 	port: number,
 	cert?: string,
