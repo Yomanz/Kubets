@@ -7,7 +7,7 @@ export class PubSub extends GrpcClient {
 	protected store: any = false; // TODO: Create an EventStore
 	protected giver: Giver = new Giver(this.client);
 	protected taker?: Taker;
-	constructor(settings: PubSubSettings) { super(settings) }
+	constructor(private pubSubSettings: PubSubSettings) { super(pubSubSettings) }
 
 	close(): void {
 		this.client.close();
@@ -15,7 +15,7 @@ export class PubSub extends GrpcClient {
 	}
 
 	protected send(event: Event): Promise<Result> {
-		event.setChannel(this.settings.channel);
+		event.setChannel(this.pubSubSettings.channel);
 		event.setClientid(this.settings.client);
 
 		return this.giver.sendEvent(event);
@@ -30,8 +30,8 @@ export class PubSub extends GrpcClient {
 			sub.setEventsstoretypevalue(storeProperties.Eventsstoretypevalue);
 		}
 		sub.setClientid(this.settings.client);
-		sub.setChannel(this.settings.channel);
-		sub.setSubscribetypedata(this.settings.type || 3);
+		sub.setChannel(this.pubSubSettings.channel);
+		sub.setSubscribetypedata(this.pubSubSettings.type || 3);
 
 		this.taker.subscribeToEvents(sub, reqHandler, errorHandler);
 	}
