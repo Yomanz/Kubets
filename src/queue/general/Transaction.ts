@@ -29,6 +29,19 @@ export class Transaction extends GrpcClient {
 		return this.handler.streamQueueMessageAckRequest(req)
 	}
 
+	public async reject(seq: number) {
+		const req = new StreamQueueMessagesRequest();
+		req.setClientid(this.settings.client);
+		req.setChannel(this.queueSettings.queue);
+		req.setRequestid(Util.generateId());
+		req.setStreamrequesttypedata(StreamRequestType.REJECTMESSAGE)
+		req.setVisibilityseconds(0)
+		req.setWaittimeseconds(0)
+		req.setRefsequence(seq);
+
+		return this.handler.streamQueueMessageRejectRequest(req)
+	}
+
 	async receive(cb: (...args: any[]) => any, errorCB: (...args: any[]) => any, visibility: number = 1) {
 		if (this.openStream()) return Promise.reject('Stream already open, please call ack');
 

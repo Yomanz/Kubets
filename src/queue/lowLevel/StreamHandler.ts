@@ -37,4 +37,10 @@ export class StreamHandler {
 
 		return this.stream.write(req);
 	}
+
+	async streamQueueMessageRejectRequest(req: StreamQueueMessagesRequest) {
+		if (!this.stream) throw new Error('No active stream')
+
+		return this.stream.write(req);
+	}
 }
