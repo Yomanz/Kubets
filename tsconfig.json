@@ -7,7 +7,6 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "strict": true,
-    "traceResolution": true,
     "sourceMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,
