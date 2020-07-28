@@ -4,7 +4,7 @@
 // file: src/protos/grpc/kubemq.proto
 
 import * as src_protos_grpc_kubemq_pb from "./kubemq_pb";
-import * as grpc from "grpc";
+import * as grpc from '@grpc/grpc-js';
 
 interface IkubemqService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   sendEvent: grpc.MethodDefinition<src_protos_grpc_kubemq_pb.Event, src_protos_grpc_kubemq_pb.Result>;

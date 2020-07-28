@@ -4,7 +4,7 @@ import {
 	StreamQueueMessagesRequest,
 	StreamQueueMessagesResponse
 } from '../../protos/generated';
-import {ClientDuplexStream} from "grpc";
+import {ClientDuplexStream} from '@grpc/grpc-js';
 
 export class StreamHandler {
 	public stream?: ClientDuplexStream<StreamQueueMessagesRequest, StreamQueueMessagesResponse>;

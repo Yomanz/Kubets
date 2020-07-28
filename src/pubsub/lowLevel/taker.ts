@@ -1,10 +1,10 @@
 import {PubSub} from "../pubsub";
 import {Settings} from "../../interfaces";
-import {kubemqClient, Request, Subscribe} from "../../protos/generated";
-import {ClientReadableStream} from "grpc";
+import {EventReceive, kubemqClient, Request, Subscribe} from "../../protos/generated";
+import {ClientReadableStream} from '@grpc/grpc-js';
 
 export class Taker {
-	public join?: ClientReadableStream<Request>;
+	public join?: ClientReadableStream<EventReceive>;
 
 	constructor(public client: kubemqClient) {}
 

@@ -1,6 +1,6 @@
 import {EventEmitter} from "events";
 import {Empty, kubemqClient, Request, Response, Subscribe} from "../../protos";
-import {ClientReadableStream} from "grpc";
+import {ClientReadableStream} from '@grpc/grpc-js';
 
 export class Responder {
 	public join?: ClientReadableStream<Request>;

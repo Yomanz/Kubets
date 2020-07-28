@@ -1,4 +1,4 @@
-import {credentials} from 'grpc';
+import {credentials} from '@grpc/grpc-js';
 import {Config} from '../classes';
 import {readFileSync} from 'fs';
 import {kubemqClient} from '../protos/generated';

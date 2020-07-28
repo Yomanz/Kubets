@@ -7,7 +7,7 @@ import {
 	StreamRequestType
 } from '../../protos/generated';
 import {Util} from '../../classes';
-import {ClientDuplexStream, ClientReadableStream} from 'grpc';
+import {ClientDuplexStream, ClientReadableStream} from '@grpc/grpc-js';
 import {GrpcClient} from '../../lib';
 import {QueueSettings} from '../../interfaces';
 
