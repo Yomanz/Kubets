@@ -1,9 +1,4 @@
-import {
-	kubemqClient,
-	ReceiveQueueMessagesRequest,
-	StreamQueueMessagesRequest,
-	StreamQueueMessagesResponse
-} from '../../protos/generated';
+import {kubemqClient, StreamQueueMessagesRequest, StreamQueueMessagesResponse} from '../../protos/generated';
 import {ClientDuplexStream} from '@grpc/grpc-js';
 
 export class StreamHandler {

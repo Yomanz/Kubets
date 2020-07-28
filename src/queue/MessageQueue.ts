@@ -1,5 +1,5 @@
 import {GrpcClient} from '../lib';
-import {QueueSettings, Settings} from '../interfaces';
+import {QueueSettings} from '../interfaces';
 import {AckAllQueueMessagesRequest, QueueMessage, ReceiveQueueMessagesRequest} from '../protos'
 import {QueueSender} from './lowLevel/QueueSender';
 import {Util} from '../classes';

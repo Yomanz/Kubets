@@ -1,13 +1,6 @@
 import {StreamHandler} from '../lowLevel/StreamHandler';
-import {MessageQueue} from '../MessageQueue';
-import {
-	ReceiveQueueMessagesRequest,
-	ReceiveQueueMessagesResponse,
-	StreamQueueMessagesRequest, StreamQueueMessagesResponse,
-	StreamRequestType
-} from '../../protos/generated';
+import {StreamQueueMessagesRequest, StreamRequestType} from '../../protos/generated';
 import {Util} from '../../classes';
-import {ClientDuplexStream, ClientReadableStream} from '@grpc/grpc-js';
 import {GrpcClient} from '../../lib';
 import {QueueSettings} from '../../interfaces';
 

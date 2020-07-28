@@ -1,5 +1,5 @@
 import {PubSub} from "../pubsub";
-import {PubSubSettings, Settings} from "../../interfaces";
+import {PubSubSettings} from "../../interfaces";
 import {Event, Result} from "../../protos/generated";
 
 export class Publisher extends PubSub {

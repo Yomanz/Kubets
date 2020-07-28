@@ -1,6 +1,4 @@
-import {PubSub} from "../pubsub";
-import {Settings} from "../../interfaces";
-import {EventReceive, kubemqClient, Request, Subscribe} from "../../protos/generated";
+import {EventReceive, kubemqClient, Subscribe} from "../../protos/generated";
 import {ClientReadableStream} from '@grpc/grpc-js';
 
 export class Taker {

@@ -1,5 +1,5 @@
 import {GrpcClient} from "../lib";
-import {PubSubSettings, Settings, StoreProperties, SubscribeType} from "../interfaces";
+import {PubSubSettings, StoreProperties} from "../interfaces";
 import {Giver, Taker} from "./lowLevel";
 import {Event, Result, Subscribe} from "../protos/generated";
 

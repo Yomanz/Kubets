@@ -1,5 +1,3 @@
-import {PubSub} from "../pubsub";
-import {Settings} from "../../interfaces";
 import {Event, kubemqClient, Result} from "../../protos/generated";
 
 export class Giver {

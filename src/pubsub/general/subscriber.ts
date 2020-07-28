@@ -1,4 +1,4 @@
-import {PubSubSettings, Settings, StoreProperties} from "../../interfaces";
+import {PubSubSettings, StoreProperties} from "../../interfaces";
 import {PubSub} from "../pubsub";
 
 export class Subscriber extends PubSub {
