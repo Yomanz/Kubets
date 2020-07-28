@@ -27,6 +27,7 @@ export interface  PubSubSettings {
 	 cert?: string,
 	 group?: string,
 	 type?: SubscribeType,
+	 registrationKey?: string,
 	 options?: Options,
 	 defaultTimeout?: number
 }
@@ -39,7 +40,8 @@ export interface QueueSettings {
 	host: string,
 	port: number,
 	cert?: string,
-	options?: Options
+	options?: Options,
+	registrationKey?: string
 }
 
 export interface Settings {
@@ -51,7 +53,8 @@ export interface Settings {
 	cert?: string,
 	group?: string,
 	options?: Options,
-	defaultTimeout?: number
+	defaultTimeout?: number,
+	registrationKey?: string
 }
 
 export interface StoreProperties {

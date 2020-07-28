@@ -1,5 +1,4 @@
 import {credentials} from '@grpc/grpc-js';
-import {Config} from '../classes';
 import {readFileSync} from 'fs';
 import {kubemqClient} from '../protos/generated';
 import {PubSubSettings, QueueSettings, Settings} from "../interfaces";
@@ -11,7 +10,9 @@ export class GrpcClient {
 
 	createClient(): kubemqClient {
 		let client: kubemqClient;
-		this.metadata = ["X-Kubemq-Server-Token", Config.get('KubeMQRegistrationKey')];
+		this.metadata = this.settings.registrationKey
+			? ["X-Kubemq-Server-Token", this.settings.registrationKey]
+			: [];
 
 		if (this.settings.cert) {
 			let contents = readFileSync(this.settings.cert);
