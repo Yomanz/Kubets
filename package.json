@@ -12,7 +12,7 @@
   "scripts": {
     "prepublishOnly": "yarn build",
     "build": "tsc",
-    "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:.\\src\\protos\\generated --plugin=\"protoc-gen-grpc,proto-gen-ts=..\\node_modules\\.bin\\protoc-gen-ts\" .\\src\\protos\\grpc\\kubemq.proto"
+    "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:./src/protos/generated --plugin=\"protoc-gen-grpc,proto-gen-ts=../node_modules/.bin/protoc-gen-ts\" ./src/protos/grpc/kubemq.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.1.3",
