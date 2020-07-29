@@ -11,8 +11,9 @@
   ],
   "scripts": {
     "prepublishOnly": "yarn build",
-    "build": "tsc",
-    "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:./src/protos/generated --plugin=\"protoc-gen-grpc,proto-gen-ts=../node_modules/.bin/protoc-gen-ts\" ./src/protos/grpc/kubemq.proto"
+    "build": "tsc && npm run build:proto:release",
+    "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:./src/protos/generated --plugin=\"protoc-gen-grpc,proto-gen-ts=../node_modules/.bin/protoc-gen-ts\" ./src/protos/grpc/kubemq.proto",
+    "build:proto:release": "cd ./src/protos/grpc && protoc-gen-grpc --ts_out=service=grpc-node:../../../compiled/protos/generated --plugin=\"protoc-gen-grpc,proto-gen-ts=../node_modules/.bin/protoc-gen-ts\" ./kubemq.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.1.3",
