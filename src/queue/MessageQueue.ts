@@ -35,6 +35,7 @@ export class MessageQueue extends GrpcClient {
 		this.queueSettings.maxNumberOfMessage && request.setMaxnumberofmessages(this.queueSettings.maxNumberOfMessage);
 		request.setWaittimeseconds(wait);
 		request.setRequestid(id)
+		request.setMaxnumberofmessages(amount || 1);
 		request.setClientid(this.settings.client)
 		request.setChannel(this.queueSettings.queue)
 
