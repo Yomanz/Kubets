@@ -15,7 +15,7 @@
     "build:proto": "protoc-gen-grpc --ts_out=service=grpc-node:.\\src\\protos\\generated --plugin=\"protoc-gen-grpc,proto-gen-ts=..\\node_modules\\.bin\\protoc-gen-ts\" .\\src\\protos\\grpc\\kubemq.proto"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.1.3",
+    "@grpc/grpc-js": "^1.1.8",
     "@grpc/proto-loader": "^0.5.3",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",
